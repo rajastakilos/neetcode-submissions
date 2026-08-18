@@ -1,0 +1,20 @@
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int p1 = 0;
+        int p2 = numbers.length - 1;
+
+        while (p1 < p2) {
+            if (numbers[p1] + numbers[p2] < target) {
+                p1++;
+            } else if (numbers[p1] + numbers[p2] > target) {
+                p2--;
+            } else {
+                return new int[]{p1 + 1, p2 + 1};
+            }   
+        }
+
+        throw new IllegalArgumentException("Array doesn't contain exactly two values that add up to target.");
+    }
+}
+// Time: O(n).
+// Space: O(1).

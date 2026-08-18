@@ -1,0 +1,25 @@
+class Solution {
+    public int maxArea(int[] heights) {
+        int left = 0;
+        int right = heights.length - 1;
+        int best = Integer.MIN_VALUE;; 
+        while (left < right) {
+            // Insight 1: width (right - left) * shortest wall (limiting factor is shortest not tallest wall).
+            int currentAmount = (right - left) * Math.min(heights[left], heights[right]);
+            best = Math.max(best, currentAmount);
+
+            // We look for a taller wall depending on which side was shorter.
+            if (heights[left] < heights[right]) {
+                left++;
+            } else {
+                right--;
+            }
+
+        }
+
+        return best;
+    }
+}
+
+// Time: O(n). Must touch each element at most once.
+// Space: O(1).

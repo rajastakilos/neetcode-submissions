@@ -1,0 +1,41 @@
+class TimeMap {
+    private final Map<String, List<Entry>> store = new HashMap<>();
+    public TimeMap() {}
+    
+    public void set(String key, String value, int timestamp) {
+        this.store
+            .computeIfAbsent(key, k -> new ArrayList<>())
+            .add(new Entry(timestamp, value));
+    }
+    
+    public String get(String key, int timestamp) {
+        String answer = "";
+        List<Entry> history = this.store.get(key);
+        if (history == null) return answer;
+
+        int left = 0;
+        int right = history.size() - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (history.get(mid).timestamp <= timestamp) {
+                left = mid + 1;
+                answer = history.get(mid).value;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return answer;
+    }
+
+    private static class Entry {
+        int timestamp;
+        String value;
+        Entry(int timestamp, String value) {
+            this.timestamp = timestamp;
+            this.value = value;
+        }
+    }
+}

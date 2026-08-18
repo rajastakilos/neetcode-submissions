@@ -1,0 +1,20 @@
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        if (cost.length == 1) return cost[0];
+        if (cost.length == 2) return Math.min(cost[0], cost[1]);
+
+        int[] dp = new int[cost.length + 1]; 
+        dp[0] = cost[0]; 
+        dp[1] = cost[1];
+
+        for (int i = 2; i < cost.length; i++) {
+            // current Cost + previous costs
+            dp[i] = cost[i] + Math.min(dp[i - 1], dp[i - 2]);
+            // dp[i] cost to use stair i / step from stair i.
+        }
+
+        return Math.min(dp[cost.length - 1], dp[cost.length - 2]);
+        // We can reach final stair from either one step before or two steps before. 
+        // Current step isn't a thing.
+    }
+}
